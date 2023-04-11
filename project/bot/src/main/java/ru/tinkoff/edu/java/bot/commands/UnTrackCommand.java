@@ -13,10 +13,11 @@ import ru.tinkoff.edu.java.bot.dto.RemoveLinkRequest;
 public class UnTrackCommand implements Command{
 
     private final ScrapperClient scrapperClient;
+    private final LinkParser parser;
 
-
-    public UnTrackCommand(ScrapperClient scrapperClient) {
+    public UnTrackCommand(ScrapperClient scrapperClient, LinkParser parser) {
         this.scrapperClient = scrapperClient;
+        this.parser = parser;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class UnTrackCommand implements Command{
         long chatId = update.message().chat().id();
         String msg;
         try {
-            if (new LinkParser().parseUrl(update.message().text()) != null){
+            if parser.parseUrl(update.message().text()) != null){
                 scrapperClient.deleteLink(chatId, new RemoveLinkRequest(update.message().text()));
                 msg = "Ссылка успешно удалена";
             } else msg = "Некорректная ссылка";

@@ -10,12 +10,15 @@ import ru.tinkoff.edu.java.bot.dto.AddLinkRequest;
 
 @Component
 public class TrackCommand implements Command {
+	 private final ScrapperClient scrapperClient;
+	 private final LinkParser parser;
 
-    public TrackCommand(ScrapperClient scrapperClient) {
+    public TrackCommand(ScrapperClient scrapperClient, LinkParser parser) {
         this.scrapperClient = scrapperClient;
+        this.parser = parser;
     }
 
-    private final ScrapperClient scrapperClient;
+  
 
     @Override
     public String command() {
@@ -32,7 +35,7 @@ public class TrackCommand implements Command {
         long chatId = update.message().chat().id();
         String msg;
         try {
-            if (new LinkParser().parseUrl(update.message().text()) != null){
+            if (parser.parseUrl(update.message().text()) != null){
                 scrapperClient.addLink(chatId, new AddLinkRequest(update.message().text()));
                 msg = "Ссылка успешно добавлена";
             } else msg = "Некорректная ссылка";
