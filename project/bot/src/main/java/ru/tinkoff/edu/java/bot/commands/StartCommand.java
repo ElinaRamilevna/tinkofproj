@@ -12,6 +12,7 @@ import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 import ru.tinkoff.edu.java.bot.client.ScrapperClientException;
 import ru.tinkoff.edu.java.bot.dto.Link;
 import ru.tinkoff.edu.java.bot.dto.ListLinkResponse;
+import ru.tinkoff.edu.java.bot.dto.UserAddDto;
 
 @Component
 public class StartCommand implements Command{
@@ -41,9 +42,11 @@ public class StartCommand implements Command{
     public String handle(Update update) {
         long chatId = update.message().chat().id();
         try {
-            scrapperClient.registerChat(chatId);
-            return "Привет! Рад познакомиться, "+update.message().chat().firstName();
-        } catch (ScrapperClientException e){
+        	UserAddDto userAddDto = new UserAddDto(update.message().chat().username(), update.message().chat().firstName(), update.message().chat().lastName());
+            scrapperClient.registerChat(chatId, userAddDto);
+            return "Привет! Рад познакомиться, " + update.message().chat().firstName();
+        } catch (ScrapperClientException e) {
+
             return e.getMessage();
         }
 

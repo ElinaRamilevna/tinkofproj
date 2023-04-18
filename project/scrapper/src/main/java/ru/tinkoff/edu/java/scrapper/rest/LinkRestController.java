@@ -5,39 +5,44 @@ import ru.tinkoff.edu.java.scrapper.dto.AddLinkRequest;
 import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.RemoveLinkRequest;
+import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
 import ru.tinkoff.edu.java.scrapper.model.Link;
-import ru.tinkoff.edu.java.scrapper.service.LinkService;
+import ru.tinkoff.edu.java.scrapper.service.SubscriptionService;
 
 import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/links")
 public class LinkRestController {
 
 
-    private final LinkService linkService;
+	 private final SubscriptionService subscriptionService;
 
-    public LinkRestController(LinkService linkService) {
-        this.linkService = linkService;
-    }
+	    public LinkRestController(SubscriptionService subscriptionService) {
+	        this.subscriptionService = subscriptionService;
+	    }
 
-    @GetMapping
-    public ListLinkResponse getLinks(@RequestHeader("Tg-Chat-Id") Long chatId) {
-        List<Link> list = linkService.getLinks(chatId);
-        return new ListLinkResponse(list, list.size());
-    }
 
-    @PostMapping
-    public LinkResponse addLink(@RequestHeader("Tg-Chat-Id") Long chatId, @RequestBody AddLinkRequest request) {
-        Link link = linkService.addLink(chatId, request);
-        return new LinkResponse(link.getId(), link.getUrl());
-    }
+	    @GetMapping
+	    public ListLinkResponse getLinks(@RequestHeader("Tg-Chat-Id") Long chatId) {
+	        List<Link> list = subscriptionService.getAllByUser(chatId);
+	        return new ListLinkResponse(list, list.size());
+	    }
 
-    @DeleteMapping
-    public LinkResponse deleteLink(@RequestHeader("Tg-Chat-Id") Long chatId, @RequestBody RemoveLinkRequest request) {
-        Link link = linkService.deleteLink(chatId, request);
-        return new LinkResponse(link.getId(), link.getUrl());
-    }
+	    @PostMapping
+	    public LinkResponse addLink(@RequestHeader("Tg-Chat-Id") Long chatId, @RequestBody AddLinkRequest request) {
+	        Link link = subscriptionService.add(chatId, URI.create(request.link()));
+	        return new LinkResponse(link.getId(), link.getUrl());
+
+	    }
+
+	    @DeleteMapping
+	    public LinkResponse deleteLink(@RequestHeader("Tg-Chat-Id") Long chatId, @RequestBody RemoveLinkRequest request) {
+	        Link link = subscriptionService.remove(chatId, URI.create(request.link()));
+	        if (link == null) throw new LinkNotFoundException("Ссылка с таким url не отслеживается!");
+	        return new LinkResponse(link.getId(), link.getUrl());
+	    }
 
 
 }

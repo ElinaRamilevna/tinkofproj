@@ -38,6 +38,10 @@ public class Bot implements AutoCloseable {
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
     }
+    
+    public void sendMessage(Long chatId, String msg) {
+        bot.execute(new SendMessage(chatId, msg));
+    }
 
 
     @Override
