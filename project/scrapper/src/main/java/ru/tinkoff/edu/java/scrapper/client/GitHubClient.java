@@ -14,13 +14,11 @@ public class GitHubClient {
 
     private final WebClient webClient;
 
-    //для использования baseUrl по умолчанию (берётся из properties)
     public GitHubClient() {
         this.webClient = WebClient.create(gitHubBaseUrl);
     }
 
 
-    //можно указать базовый URL
     public GitHubClient(String baseUrl) {
         this.webClient = WebClient.create(baseUrl);
     }
@@ -33,6 +31,16 @@ public class GitHubClient {
                 }).block();
 
         return response;
+
+    }
+    
+    public void strFetchRepo(String owner, String repo){
+        String strReponse = webClient.get().uri("/repos/{owner}/{repo}", owner, repo).exchangeToMono(r->{
+            if (!r.statusCode().equals(HttpStatus.OK)) throw new GitHubRequestException("Error with request to GH API");
+            return r.bodyToMono(String.class);
+        }).block();
+
+        System.out.println(strReponse);
 
     }
 }
