@@ -17,7 +17,7 @@ import java.util.List;
 public class JdbcSubscriptionService implements SubscriptionService {
 
 
-    private final LinkRepository linkRepository;
+	private final LinkRepository linkRepository;
 
     private final SubscriptionRepository subscriptionRepository;
 
@@ -35,7 +35,7 @@ public class JdbcSubscriptionService implements SubscriptionService {
         if (link == null) {
             link = new Link();
             link.setUrl(url.toString());
-            link.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            link.setCheckedAt(new Timestamp(System.currentTimeMillis()));
             linkRepository.add(link);
             link = linkRepository.findByUrl(link.getUrl());
         }

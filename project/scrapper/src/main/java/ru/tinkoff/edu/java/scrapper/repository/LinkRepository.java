@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.repository;
 
 import ru.tinkoff.edu.java.scrapper.model.Link;
-import ru.tinkoff.edu.java.scrapper.model.User;
 
 import java.util.List;
 
@@ -15,5 +14,15 @@ public interface LinkRepository {
     void updateDate(Link link);
     void remove(Long id);
     List<Link> findOldLinks(Long timeUpdateDeltaInSeconds);
+    
+    void updateGhForksCount(Link link);
+
+    void updateGhDescription(Link link);
+
+    void updateGhPushedAt(Link link);
+
+    void updateSoLastEditDate(Link link);
+
+    void updateSoAnswerCount(Link link);
 
 }
