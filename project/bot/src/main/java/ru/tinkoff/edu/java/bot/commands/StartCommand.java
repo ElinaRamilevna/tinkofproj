@@ -50,7 +50,5 @@ public class StartCommand implements Command{
             return e.getMessage();
         }
 
-
-
     }
 }

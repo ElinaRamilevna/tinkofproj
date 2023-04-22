@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.model;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

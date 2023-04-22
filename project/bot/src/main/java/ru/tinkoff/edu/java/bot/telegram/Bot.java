@@ -16,7 +16,6 @@ public class Bot implements AutoCloseable {
     private final UserMessageProcessor userMessageProcessor;
 
 
-
     @PostConstruct
     public void init(){
         start();
@@ -32,16 +31,18 @@ public class Bot implements AutoCloseable {
         System.out.println("Бот запущен...");
         bot.setUpdatesListener(updates -> {
             for (Update update : updates) {
-                bot.execute(new SendMessage(update.message().chat().id(), userMessageProcessor.process(update)));
+                if (update.message() != null) bot.execute(new SendMessage(update.message().chat().id(), userMessageProcessor.process(update)));
 
             }
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
     }
-    
+
+
     public void sendMessage(Long chatId, String msg) {
         bot.execute(new SendMessage(chatId, msg));
     }
+
 
 
     @Override

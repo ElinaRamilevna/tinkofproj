@@ -30,9 +30,9 @@ public class BotConfiguration {
     private final StartCommand startCommand;
     private final ListCommand listCommand;
     private final TrackCommand trackCommand;
-    private final UntrackCommand untrackCommand;
+    private final UnTrackCommand untrackCommand;
 
-    public BotConfiguration(HelpCommand helpCommand, StartCommand startCommand, ListCommand listCommand, TrackCommand trackCommand, UntrackCommand untrackCommand) {
+    public BotConfiguration(HelpCommand helpCommand, StartCommand startCommand, ListCommand listCommand, TrackCommand trackCommand, UnTrackCommand untrackCommand) {
         this.helpCommand = helpCommand;
         this.startCommand = startCommand;
         this.listCommand = listCommand;
@@ -51,9 +51,6 @@ public class BotConfiguration {
         commands.put(CommandsEnum.TRACK,trackCommand);
         commands.put(CommandsEnum.UNTRACK,untrackCommand);
 
-
-        //Делаем кнопку "Меню" рядом с иконкой скрепки
-        //нужно отправить запрос на API телеграмма (метод setMyCommands) со списком команд в виде List<BotCommand>
         List<BotCommand> apiCommands = new ArrayList<>(commands.values().stream().map(Command::toApiCommand).toList());
         WebClient botConfClient = WebClient.create(tgApiBaseUrl+token);
         botConfClient.post().uri("/setMyCommands").bodyValue(new SetCommandRequest(apiCommands)).exchangeToMono(r ->{

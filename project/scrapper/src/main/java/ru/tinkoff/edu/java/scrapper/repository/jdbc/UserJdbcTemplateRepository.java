@@ -1,14 +1,14 @@
-package ru.tinkoff.edu.java.scrapper.repository;
+package ru.tinkoff.edu.java.scrapper.repository.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.mapper.UserRowMapper;
 import ru.tinkoff.edu.java.scrapper.model.User;
+import ru.tinkoff.edu.java.scrapper.repository.UserRepository;
 
 import java.util.List;
 
-@Repository
 @Slf4j
 public class UserJdbcTemplateRepository implements UserRepository {
 
@@ -51,8 +51,5 @@ public class UserJdbcTemplateRepository implements UserRepository {
         String sql = "delete from \"user\" where \"user\".chat_id = ?";
         jdbcTemplate.update(sql,chatId);
     }
-
-
-
 
 }

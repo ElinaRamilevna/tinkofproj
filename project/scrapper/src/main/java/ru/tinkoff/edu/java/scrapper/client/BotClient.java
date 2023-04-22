@@ -1,4 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.client;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import ru.tinkoff.edu.java.scrapper.exception.BotClientException;
 
 @Slf4j
 public class BotClient {
+	
 	 @Value("${bot.baseurl}")
 	    private String botBaseUrl;
 

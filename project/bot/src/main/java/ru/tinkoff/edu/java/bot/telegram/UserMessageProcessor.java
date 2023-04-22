@@ -58,7 +58,6 @@ public class UserMessageProcessor {
                 return command.handle(update);
             }
             default -> {
-                //По логике этот return никак недостижим
                 return "Что-то пошло не так. Проблема на нашей стороне";
 
             }

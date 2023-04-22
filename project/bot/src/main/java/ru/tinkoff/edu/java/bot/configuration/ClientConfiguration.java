@@ -17,7 +17,6 @@ public class ClientConfiguration {
 	        return WebClient.create(scrapperBaseUrl);
 	    }
 
-	    //Регистрируем клиентов как бины
 	    @Bean
 	    public ScrapperClient scrapperClient() {
 	        return new ScrapperClient(scrapperBaseUrl);

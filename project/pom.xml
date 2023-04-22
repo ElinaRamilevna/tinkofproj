@@ -4,20 +4,27 @@
   <artifactId>project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  
  <modules>
 <module>bot</module>
 <module>link-parser</module>
 <module>scrapper</module>
-</modules>
-<properties>
-<spring-boot.version>3.0.1</spring-boot.version>
-<spring-cloud.version>2022.0.0</spring-cloud.version>
-<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-<annotations.version>23.1.0</annotations.version>
-<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-</properties>
+ 	<module>scrapper-jooq</module>
+ </modules>
+ 
+    <properties>
+        <spring-boot.version>3.0.1</spring-boot.version>
+        <spring-cloud.version>2022.0.0</spring-cloud.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <annotations.version>23.1.0</annotations.version>
+        <junit.version>5.8.1</junit.version>
+        <mockito.version>4.3.1</mockito.version>
+        <testcontainers.version>1.17.1</testcontainers.version>
+        <spring.test.version>3.0.5</spring.test.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-    <dependencyManagement>
+   <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

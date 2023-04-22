@@ -15,8 +15,7 @@ import ru.tinkoff.edu.java.scrapper.mapper.SubscriptionRowMapper;
 import ru.tinkoff.edu.java.scrapper.model.Link;
 import ru.tinkoff.edu.java.scrapper.model.Relation;
 import ru.tinkoff.edu.java.scrapper.model.User;
-import ru.tinkoff.edu.java.scrapper.repository.LinkJdbcTemplateRepository;
-import ru.tinkoff.edu.java.scrapper.repository.SubscriptionJdbcTemplateRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jdbc.SubscriptionJdbcTemplateRepository;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.List;
 @SpringBootTest(classes = {ScrapperApplication.class, TestConfiguration.class})
 public class JdbcSubscriptionTest extends IntegrationEnvironment {
 
-    @Autowired
+	@Autowired
     private SubscriptionJdbcTemplateRepository subscriptionRepository;
 
     @Autowired
