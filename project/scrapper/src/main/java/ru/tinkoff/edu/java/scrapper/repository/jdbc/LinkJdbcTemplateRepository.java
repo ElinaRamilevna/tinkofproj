@@ -72,37 +72,16 @@ public class LinkJdbcTemplateRepository implements LinkRepository {
     }
 
     @Override
-    public void updateGhForksCount(Link link) {
-        log.info("updateGhForksCount() method invocation in linkRepo");
-        String sql = "update link set gh_forks_count = ? where id = ?";
-        jdbcTemplate.update(sql, link.getGhForksCount(), link.getId());
+    public void updateGhLink(Link link) {
+        log.info("updateGhLink() method invocation in linkJdbcRepo");
+        String sql = "update link set gh_forks_count = ?, gh_description = ?, gh_pushed_at = ? where id = ?";
+        jdbcTemplate.update(sql, link.getGhForksCount(), link.getGhDescription(), link.getGhPushedAt(), link.getId());
     }
 
     @Override
-    public void updateGhDescription(Link link) {
-        log.info("updateGhDescription() method invocation in linkRepo");
-        String sql = "update link set gh_description = ? where id = ?";
-        jdbcTemplate.update(sql, link.getGhDescription(), link.getId());
-    }
-
-    @Override
-    public void updateGhPushedAt(Link link) {
-        log.info("updateGhPushedAt() method invocation in linkRepo");
-        String sql = "update link set gh_pushed_at = ? where id = ?";
-        jdbcTemplate.update(sql, link.getGhPushedAt(), link.getId());
-    }
-
-    @Override
-    public void updateSoLastEditDate(Link link) {
-        log.info("updateSoLastEditDate() method invocation in linkRepo");
-        String sql = "update link set so_last_edit_date = ? where id = ?";
-        jdbcTemplate.update(sql, link.getSoLastEditDate(), link.getId());
-    }
-
-    @Override
-    public void updateSoAnswerCount(Link link) {
-        log.info("updateSoAnswerCount() method invocation in linkRepo");
-        String sql = "update link set so_answer_count = ? where id = ?";
-        jdbcTemplate.update(sql, link.getSoAnswerCount(), link.getId());
+    public void updateSoLink(Link link) {
+        log.info("updateSoLastEditDate() method invocation in linkJdbcRepo");
+        String sql = "update link set so_last_edit_date = ?, so_answer_count = ? where id = ?";
+        jdbcTemplate.update(sql, link.getSoLastEditDate(), link.getSoAnswerCount(), link.getId());
     }
 }

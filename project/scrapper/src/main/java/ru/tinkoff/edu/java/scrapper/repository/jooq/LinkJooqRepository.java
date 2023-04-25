@@ -5,7 +5,6 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.records.LinkRecord;
 import ru.tinkoff.edu.java.scrapper.model.Link;
 import ru.tinkoff.edu.java.scrapper.repository.LinkRepository;
 
@@ -78,48 +77,21 @@ public class LinkJooqRepository implements LinkRepository {
 	    }
 
 	    @Override
-	    public void updateGhForksCount(Link link) {
-	        log.info("updateGhForksCount() method invocation in linkJooqRepo");
+	    public void updateGhLink(Link link) {
+	        log.info("updateGhLink() method invocation in linkJooqRepo");
 	        dslContext.update(LINK)
 	                .set(LINK.GH_FORKS_COUNT, link.getGhForksCount())
-	                .where(LINK.ID.eq(link.getId()))
-	                .execute();
-
-	    }
-
-	    @Override
-	    public void updateGhDescription(Link link) {
-	        log.info("updateGhDescription() method invocation in linkJooqRepo");
-	        dslContext.update(LINK)
 	                .set(LINK.GH_DESCRIPTION, link.getGhDescription())
-	                .where(LINK.ID.eq(link.getId()))
-	                .execute();
-
-	    }
-
-	    @Override
-	    public void updateGhPushedAt(Link link) {
-	        log.info("updateGhPushedAt() method invocation in linkJooqRepo");
-	        dslContext.update(LINK)
 	                .set(LINK.GH_PUSHED_AT, link.getGhPushedAt().toLocalDateTime())
 	                .where(LINK.ID.eq(link.getId()))
 	                .execute();
-
 	    }
 
 	    @Override
-	    public void updateSoLastEditDate(Link link) {
-	        log.info("updateSoLastEditDate() method invocation in linkJooqRepo");
+	    public void updateSoLink(Link link) {
+	        log.info("updateSoLink() method invocation in linkJooqRepo");
 	        dslContext.update(LINK)
 	                .set(LINK.SO_LAST_EDIT_DATE, link.getSoLastEditDate().toLocalDateTime())
-	                .where(LINK.ID.eq(link.getId()))
-	                .execute();
-	    }
-
-	    @Override
-	    public void updateSoAnswerCount(Link link) {
-	        log.info("updateSoAnswerCount() method invocation in linkJooqRepo");
-	        dslContext.update(LINK)
 	                .set(LINK.SO_ANSWER_COUNT, link.getSoAnswerCount())
 	                .where(LINK.ID.eq(link.getId()))
 	                .execute();
