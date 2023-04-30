@@ -3,14 +3,7 @@ package ru.tinkoff.edu.java.scrapper.schedule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import Parser.LinkParser;
-import Link.GithubLink;
-import Link.ParserLink;
-import Link.StackOverflowLink;
-import ru.tinkoff.edu.java.scrapper.client.GitHubClient;
-import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
-import ru.tinkoff.edu.java.scrapper.model.Link;
-import ru.tinkoff.edu.java.scrapper.service.LinkUpdateService;
+import ru.tinkoff.edu.java.scrapper.service.contract.LinkUpdateService;
 
 import java.util.List;
 

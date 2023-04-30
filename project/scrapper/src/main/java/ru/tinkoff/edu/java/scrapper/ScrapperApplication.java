@@ -17,8 +17,7 @@ import java.util.List;
 @EnableConfigurationProperties(ApplicationConfig.class)
 @EnableScheduling
 public class ScrapperApplication {
-	public static void main(String[] args) throws URISyntaxException {
-		var ctx = SpringApplication.run(ScrapperApplication.class, args);
-		
-}
+    public static void main(String[] args) throws URISyntaxException {
+        var ctx = SpringApplication.run(ScrapperApplication.class, args);
+    }
 }

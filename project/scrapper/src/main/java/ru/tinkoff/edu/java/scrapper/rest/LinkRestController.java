@@ -6,8 +6,8 @@ import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.RemoveLinkRequest;
 import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
-import ru.tinkoff.edu.java.scrapper.model.Link;
-import ru.tinkoff.edu.java.scrapper.service.SubscriptionService;
+import ru.tinkoff.edu.java.scrapper.model.commonDto.Link;
+import ru.tinkoff.edu.java.scrapper.service.contract.SubscriptionService;
 
 import java.util.List;
 import java.net.URI;
@@ -32,14 +32,14 @@ public class LinkRestController {
 
 	    @PostMapping
 	    public LinkResponse addLink(@RequestHeader("Tg-Chat-Id") Long chatId, @RequestBody AddLinkRequest request) {
-	        Link link = subscriptionService.add(chatId, URI.create(request.link()));
+	        Link link = subscriptionService.subscribe(chatId, URI.create(request.link()));
 	        return new LinkResponse(link.getId(), link.getUrl());
 
 	    }
 
 	    @DeleteMapping
 	    public LinkResponse deleteLink(@RequestHeader("Tg-Chat-Id") Long chatId, @RequestBody RemoveLinkRequest request) {
-	        Link link = subscriptionService.remove(chatId, URI.create(request.link()));
+	        Link link = subscriptionService.unsubscribe(chatId, URI.create(request.link()));
 	        if (link == null) throw new LinkNotFoundException("Ссылка с таким url не отслеживается!");
 	        return new LinkResponse(link.getId(), link.getUrl());
 	    }
