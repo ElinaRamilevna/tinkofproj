@@ -11,43 +11,31 @@ import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 @Configuration
 public class ClientConfiguration {
 
-	 @Value("${gh.baseurl}")
-	    private String gitHubBaseUrl;
+    @Value("${gh.baseurl}")
+    private String gitHubBaseUrl;
 
-	    @Value("${so.baseurl}")
-	    private String stackOverflowBaseUrl;
+    @Value("${so.baseurl}")
+    private String stackOverflowBaseUrl;
 
-	    @Value("${bot.baseurl}")
-	    private String botBaseUrl;
+    //Регистрируем клиентов как бины
+    @Bean
+    public GitHubClient gitHubClientService() {
+        return new GitHubClient(gitHubBaseUrl);
+    }
 
+    @Bean
+    public StackOverflowClient stackOverflowClientService() {
+        return new StackOverflowClient(stackOverflowBaseUrl);
+    }
 
-	    //Регистрируем клиентов как бины
-	    @Bean
-	    public GitHubClient gitHubClientService() {
-	        return new GitHubClient(gitHubBaseUrl);
-	    }
+    @Bean
+    public WebClient ghWebClient(){
+        return WebClient.create(gitHubBaseUrl);
+    }
 
-	    @Bean
-	    public StackOverflowClient stackOverflowClientService() {
-	        return new StackOverflowClient(stackOverflowBaseUrl);
-	    }
-
-	    @Bean
-	    public BotClient botClient(){return new BotClient(botBaseUrl);}
-
-	    @Bean
-	    public WebClient botWebClient(){
-	        return WebClient.create(botBaseUrl);
-	    }
-
-	    @Bean
-	    public WebClient ghWebClient(){
-	        return WebClient.create(gitHubBaseUrl);
-	    }
-
-	    @Bean
-	    public WebClient soWebClient(){
-	        return WebClient.create(stackOverflowBaseUrl);
+    @Bean
+    public WebClient soWebClient(){
+        return WebClient.create(stackOverflowBaseUrl);
     }
 
 }

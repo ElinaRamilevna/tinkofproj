@@ -24,6 +24,7 @@ import ru.tinkoff.edu.java.scrapper.service.contract.TgChatService;
 import ru.tinkoff.edu.java.scrapper.service.jdbcAndJooq.impl.LinkUpdateServiceImpl;
 import ru.tinkoff.edu.java.scrapper.service.jdbcAndJooq.impl.SubscriptionServiceImpl;
 import ru.tinkoff.edu.java.scrapper.service.jdbcAndJooq.impl.TgChatServiceImpl;
+import ru.tinkoff.edu.java.scrapper.service.UpdateNotificationService;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jdbc")
@@ -66,7 +67,7 @@ public class JdbcAccessConfiguration {
             LinkParser linkParser,
             GitHubClient gitHubClient,
             StackOverflowClient stackOverflowClient,
-            BotClient botClient
+            UpdateNotificationService notificationService
     ) {
         return new LinkUpdateServiceImpl(
                 linkRepository,
@@ -74,7 +75,8 @@ public class JdbcAccessConfiguration {
                 linkParser,
                 gitHubClient,
                 stackOverflowClient,
-                botClient);
+                notificationService);
+
     }
 
     @Bean
