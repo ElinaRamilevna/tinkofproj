@@ -8,8 +8,8 @@ import java.util.List;
 public interface SubscriptionService {
 
     Link subscribe(Long chatId, URI url);
-    Link unsubscribe(Long chatId, URI url);
 
+    Link unsubscribe(Long chatId, URI url);
 
     List<Link> getLinksByChat(Long chatId);
 

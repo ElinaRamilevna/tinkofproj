@@ -5,8 +5,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.scrapper.service.contract.LinkUpdateService;
 
-import java.util.List;
-
 @Slf4j
 @Component
 public class LinkUpdateScheduler {

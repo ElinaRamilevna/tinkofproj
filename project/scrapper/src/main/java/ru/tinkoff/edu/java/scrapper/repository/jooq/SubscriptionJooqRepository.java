@@ -7,10 +7,10 @@ import ru.tinkoff.edu.java.scrapper.model.commonDto.Link;
 import ru.tinkoff.edu.java.scrapper.model.jdbcAndJooq.Relation;
 import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.SubscriptionRepository;
 
-import java.util.List;
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.jooq.tables.Link.*;
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.jooq.tables.UserLink.*;
 
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.UserLink.*;
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Link.*;
+import java.util.List;
 
 
 @Slf4j

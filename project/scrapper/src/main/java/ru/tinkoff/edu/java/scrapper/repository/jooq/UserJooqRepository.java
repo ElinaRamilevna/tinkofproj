@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.model.commonDto.User;
 import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.UserRepository;
 
-import java.util.List;
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.jooq.tables.User.*;
 
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.User.*;
+import java.util.List;
 
 @Slf4j
 public class UserJooqRepository implements UserRepository {

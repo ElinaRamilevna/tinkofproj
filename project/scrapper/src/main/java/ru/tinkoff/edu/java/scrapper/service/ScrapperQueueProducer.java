@@ -12,7 +12,6 @@ public class ScrapperQueueProducer implements UpdateNotificationService {
 
     private final ApplicationConfig config;
 
-
     public ScrapperQueueProducer(AmqpTemplate rabbitTemplate, ApplicationConfig config) {
         this.rabbitTemplate = rabbitTemplate;
         this.config = config;

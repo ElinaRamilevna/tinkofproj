@@ -5,15 +5,15 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.records.LinkRecord;
+
+import ru.tinkoff.edu.java.scrapper.domain.jooq.jooq.tables.records.LinkRecord;
 import ru.tinkoff.edu.java.scrapper.model.commonDto.Link;
 import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.LinkRepository;
 
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.jooq.tables.Link.*;
+
 import java.sql.Timestamp;
 import java.util.List;
-
-
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Link.*;
 
 @Slf4j
 public class LinkJooqRepository implements LinkRepository {
