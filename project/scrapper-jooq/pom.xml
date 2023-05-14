@@ -37,5 +37,18 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>../checkstyle.xml</configLocation>
+                    <suppressionsLocation>../suppression.xml</suppressionsLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     
 </project>

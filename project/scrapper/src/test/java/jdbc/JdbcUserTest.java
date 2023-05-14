@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.configuration.database.acess.acess.JdbcAccessConfiguration;
+import ru.tinkoff.edu.java.scrapper.configuration.database.acess.JdbcAccessConfiguration;
 import ru.tinkoff.edu.java.scrapper.mapper.UserRowMapper;
 import ru.tinkoff.edu.java.scrapper.model.commonDto.User;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.UserJdbcTemplateRepository;
@@ -18,7 +18,7 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.UserRepositor
 
 import java.util.List;
 
-@SpringBootTest(classes = {ScrapperApplication.class, TestConfiguration.class, JdbcAccessConfiguration.class})
+@SpringBootTest(properties = {"app.data-base-access-type=jdbc"},classes = {ScrapperApplication.class, TestConfiguration.class, JdbcAccessConfiguration.class})
 public class JdbcUserTest extends IntegrationEnvironment {
 
     @Autowired
@@ -130,6 +130,5 @@ public class JdbcUserTest extends IntegrationEnvironment {
         Assertions.assertEquals(beforeAddUser.size(), 0);
         Assertions.assertEquals(afterInsertionUser.size(), 10);
         Assertions.assertNotNull(foundedByIdUser);
-
     }
 }

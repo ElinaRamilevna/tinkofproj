@@ -14,12 +14,13 @@ public class HTTPConfiguration {
     @Value("${bot.baseurl}")
     private String botBaseUrl;
 
+    @Bean
+    public BotClient botClient() {
+        return new BotClient(botBaseUrl);
+    }
 
     @Bean
-    public BotClient botClient(){return new BotClient(botBaseUrl);}
-
-    @Bean
-    public WebClient botWebClient(){
+    public WebClient botWebClient() {
         return WebClient.create(botBaseUrl);
     }
 

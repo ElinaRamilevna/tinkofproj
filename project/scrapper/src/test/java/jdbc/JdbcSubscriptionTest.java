@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.configuration.database.acess.acess.JdbcAccessConfiguration;
+import ru.tinkoff.edu.java.scrapper.configuration.database.acess.JdbcAccessConfiguration;
 import ru.tinkoff.edu.java.scrapper.mapper.LinkRowMapper;
 import ru.tinkoff.edu.java.scrapper.mapper.SubscriptionRowMapper;
 import ru.tinkoff.edu.java.scrapper.model.commonDto.Link;
@@ -22,7 +22,7 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.SubscriptionR
 import java.sql.Timestamp;
 import java.util.List;
 
-@SpringBootTest(classes = {ScrapperApplication.class, TestConfiguration.class, JdbcAccessConfiguration.class})
+@SpringBootTest(properties = {"app.data-base-access-type=jdbc"},classes = {ScrapperApplication.class, TestConfiguration.class, JdbcAccessConfiguration.class})
 public class JdbcSubscriptionTest extends IntegrationEnvironment {
 
     @Autowired

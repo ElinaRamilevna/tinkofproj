@@ -11,27 +11,27 @@ import ru.tinkoff.edu.java.scrapper.service.UpdateNotificationService;
 
 @Slf4j
 public class BotClient implements UpdateNotificationService {
-	
-	 @Value("${bot.baseurl}")
-	    private String botBaseUrl;
 
-	    private final WebClient webClient;
+    @Value("${bot.baseurl}")
+    private String botBaseUrl;
 
-	    public BotClient(WebClient webClient) {
-	        this.webClient = webClient;
-	    }
+    private final WebClient webClient;
 
-	    public BotClient(String botBaseUrl) {
-	        this.webClient = WebClient.create(botBaseUrl);
-	    }
+    public BotClient(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
-	    public void updateLink(LinkUpdate request) {
-	        log.info("Sending update request to Bot");
-	        webClient.post().uri("/updates").bodyValue(request).exchangeToMono(r -> {
-	            if (r.statusCode().equals(HttpStatus.BAD_REQUEST)) {
-	                throw new BotClientException("Чат с таким ID не зарегистрирован");
-	            }
-	            return Mono.empty();
-	        }).block();
-	    }
+    public BotClient(String botBaseUrl) {
+        this.webClient = WebClient.create(botBaseUrl);
+    }
+
+    public void updateLink(LinkUpdate request) {
+        log.info("Sending update request to Bot");
+        webClient.post().uri("/updates").bodyValue(request).exchangeToMono(r -> {
+            if (r.statusCode().equals(HttpStatus.BAD_REQUEST)) {
+                throw new BotClientException("Чат с таким ID не зарегистрирован");
+            }
+            return Mono.empty();
+        }).block();
+    }
 }

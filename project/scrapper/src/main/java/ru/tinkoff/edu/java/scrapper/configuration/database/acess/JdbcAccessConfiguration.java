@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import Parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.client.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 import ru.tinkoff.edu.java.scrapper.mapper.LinkRowMapper;
@@ -18,13 +17,13 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbc.UserJdbcTemplateRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.SubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbcAndJooqContract.UserRepository;
+import ru.tinkoff.edu.java.scrapper.service.UpdateNotificationService;
 import ru.tinkoff.edu.java.scrapper.service.contract.LinkUpdateService;
 import ru.tinkoff.edu.java.scrapper.service.contract.SubscriptionService;
 import ru.tinkoff.edu.java.scrapper.service.contract.TgChatService;
 import ru.tinkoff.edu.java.scrapper.service.jdbcAndJooq.impl.LinkUpdateServiceImpl;
 import ru.tinkoff.edu.java.scrapper.service.jdbcAndJooq.impl.SubscriptionServiceImpl;
 import ru.tinkoff.edu.java.scrapper.service.jdbcAndJooq.impl.TgChatServiceImpl;
-import ru.tinkoff.edu.java.scrapper.service.UpdateNotificationService;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jdbc")
@@ -51,7 +50,10 @@ public class JdbcAccessConfiguration {
     }
 
     @Bean
-    public SubscriptionRepository subscriptionRepository(JdbcTemplate jdbcTemplate, SubscriptionRowMapper subscriptionRowMapper) {
+    public SubscriptionRepository subscriptionRepository(
+        JdbcTemplate jdbcTemplate,
+        SubscriptionRowMapper subscriptionRowMapper
+    ) {
         return new SubscriptionJdbcTemplateRepository(jdbcTemplate, subscriptionRowMapper, linkRowMapper());
     }
 
@@ -62,40 +64,43 @@ public class JdbcAccessConfiguration {
 
     @Bean
     public LinkUpdateService linkUpdateService(
-            LinkRepository linkRepository,
-            SubscriptionRepository subscriptionRepository,
-            LinkParser linkParser,
-            GitHubClient gitHubClient,
-            StackOverflowClient stackOverflowClient,
-            UpdateNotificationService notificationService
+        LinkRepository linkRepository,
+        SubscriptionRepository subscriptionRepository,
+        LinkParser linkParser,
+        GitHubClient gitHubClient,
+        StackOverflowClient stackOverflowClient,
+        UpdateNotificationService notificationService
     ) {
         return new LinkUpdateServiceImpl(
-                linkRepository,
-                subscriptionRepository,
-                linkParser,
-                gitHubClient,
-                stackOverflowClient,
-                notificationService);
+            linkRepository,
+            subscriptionRepository,
+            linkParser,
+            gitHubClient,
+            stackOverflowClient,
+            notificationService
+        );
 
     }
 
     @Bean
     public SubscriptionService subscriptionService(
-            LinkRepository linkRepository,
-            SubscriptionRepository subscriptionRepository
+        LinkRepository linkRepository,
+        SubscriptionRepository subscriptionRepository
     ) {
         return new SubscriptionServiceImpl(
-                linkRepository,
-                subscriptionRepository);
+            linkRepository,
+            subscriptionRepository
+        );
     }
 
     @Bean
     public TgChatService tgChatService(
-            UserRepository userRepository,
-            SubscriptionRepository subscriptionRepository
+        UserRepository userRepository,
+        SubscriptionRepository subscriptionRepository
     ) {
         return new TgChatServiceImpl(
-                userRepository,
-                subscriptionRepository);
+            userRepository,
+            subscriptionRepository
+        );
     }
 }

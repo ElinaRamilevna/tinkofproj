@@ -20,7 +20,7 @@ public class ScrapperQueueListener {
 
     @RabbitHandler
     public void receiver(LinkUpdate update) {
-        log.info("Сообщение об обновлении получено: "+update);
+        log.info("Сообщение об обновлении получено: " + update);
         updateService.updateLink(update);
     }
 

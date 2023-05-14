@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.configuration.database.acess.acess.JpaAccessConfiguration;
+import ru.tinkoff.edu.java.scrapper.configuration.database.acess.JpaAccessConfiguration;
 import ru.tinkoff.edu.java.scrapper.mapper.LinkRowMapper;
 import ru.tinkoff.edu.java.scrapper.model.commonDto.Link;
 import ru.tinkoff.edu.java.scrapper.model.jpa.LinkEntity;
@@ -20,7 +20,7 @@ import ru.tinkoff.edu.java.scrapper.service.jpa.impl.JpaLinkUpdateServiceImpl;
 import java.sql.Timestamp;
 import java.util.List;
 
-@SpringBootTest(classes = {ScrapperApplication.class, TestConfiguration.class, JpaAccessConfiguration.class, LinkRowMapper.class})
+@SpringBootTest(properties = {"app.data-base-access-type=jpa"},classes = {ScrapperApplication.class, TestConfiguration.class, JpaAccessConfiguration.class, LinkRowMapper.class})
 public class JpaUpdateServiceTest extends IntegrationEnvironment {
 
     @Autowired
@@ -64,6 +64,5 @@ public class JpaUpdateServiceTest extends IntegrationEnvironment {
         Assertions.assertEquals(oldLinks.size(), 10);
 
     }
-
 
 }

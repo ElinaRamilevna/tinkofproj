@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.configuration.database.acess.acess.JpaAccessConfiguration;
+import ru.tinkoff.edu.java.scrapper.configuration.database.acess.JpaAccessConfiguration;
 import ru.tinkoff.edu.java.scrapper.mapper.LinkRowMapper;
 import ru.tinkoff.edu.java.scrapper.mapper.SubscriptionRowMapper;
 import ru.tinkoff.edu.java.scrapper.model.commonDto.Link;
@@ -27,7 +27,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 
-@SpringBootTest(classes = {ScrapperApplication.class, TestConfiguration.class, JpaAccessConfiguration.class, LinkRowMapper.class, SubscriptionRowMapper.class})
+@SpringBootTest(properties = {"app.data-base-access-type=jpa"},classes = {ScrapperApplication.class, TestConfiguration.class, JpaAccessConfiguration.class, LinkRowMapper.class, SubscriptionRowMapper.class})
 public class JpaSubscriptionServiceTest extends IntegrationEnvironment {
 
     @Autowired
@@ -41,7 +41,6 @@ public class JpaSubscriptionServiceTest extends IntegrationEnvironment {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
 
     @AfterEach
     public void clearDatabase(){
@@ -149,7 +148,6 @@ public class JpaSubscriptionServiceTest extends IntegrationEnvironment {
             jdbcTemplate.update("insert into user_link (link_id, chat_id) values (?,?)",afterInsertionLink.get(0).getId(),42L+i);
         }
 
-        //target
         List<Long> chatIds = subscriptionService.getChatIdsByLink(afterInsertionLink.get(0).getId());
 
         Assertions.assertEquals(beforeAddRelation.size(), 0);

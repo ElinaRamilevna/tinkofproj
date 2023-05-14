@@ -1,6 +1,13 @@
 package ru.tinkoff.edu.java.bot.configuration;
 
-import org.springframework.amqp.core.*;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.support.converter.ClassMapper;
 import org.springframework.amqp.support.converter.DefaultClassMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -10,9 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.java.bot.dto.LinkUpdate;
 import ru.tinkoff.edu.java.bot.service.ScrapperQueueListener;
 import ru.tinkoff.edu.java.bot.service.UpdateService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 public class RabbitMQConfiguration {
@@ -26,11 +30,10 @@ public class RabbitMQConfiguration {
     @Bean
     Queue queue() {
         return QueueBuilder.durable(config.queueName())
-                .withArgument("x-dead-letter-exchange", config.exchangeName())
-                .withArgument("x-dead-letter-routing-key", config.routingKey() + ".dlq")
-                .build();
+            .withArgument("x-dead-letter-exchange", config.exchangeName())
+            .withArgument("x-dead-letter-routing-key", config.routingKey() + ".dlq")
+            .build();
     }
-
 
     @Bean
     Queue deadLetterQueue() {
@@ -69,7 +72,6 @@ public class RabbitMQConfiguration {
         jsonConverter.setClassMapper(classMapper);
         return jsonConverter;
     }
-
 
     @Bean
     public ScrapperQueueListener scrapperQueueListener(AmqpTemplate rabbitTemplate, UpdateService updateService) {

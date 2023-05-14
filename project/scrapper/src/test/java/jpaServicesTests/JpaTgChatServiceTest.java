@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.configuration.database.acess.acess.JpaAccessConfiguration;
+import ru.tinkoff.edu.java.scrapper.configuration.database.acess.JpaAccessConfiguration;
 import ru.tinkoff.edu.java.scrapper.mapper.LinkRowMapper;
 import ru.tinkoff.edu.java.scrapper.mapper.SubscriptionRowMapper;
 import ru.tinkoff.edu.java.scrapper.mapper.UserRowMapper;
@@ -20,7 +20,7 @@ import ru.tinkoff.edu.java.scrapper.service.jpa.impl.JpaTgChatServiceImpl;
 
 import java.util.List;
 
-@SpringBootTest(classes = {ScrapperApplication.class, TestConfiguration.class, JpaAccessConfiguration.class, UserRowMapper.class})
+@SpringBootTest(properties = {"app.data-base-access-type=jpa"},classes = {ScrapperApplication.class, TestConfiguration.class, JpaAccessConfiguration.class, UserRowMapper.class})
 public class JpaTgChatServiceTest extends IntegrationEnvironment {
 
     @Autowired
@@ -51,7 +51,6 @@ public class JpaTgChatServiceTest extends IntegrationEnvironment {
         user.setFirstName("Robert");
         user.setLastName("Polson");
 
-        //target
         tgChatService.register(user);
 
         List<User> afterAddUser = jdbcTemplate.query("select * from \"user\"", userRowMapper);
@@ -79,7 +78,6 @@ public class JpaTgChatServiceTest extends IntegrationEnvironment {
 
         List<User> afterAddUser = jdbcTemplate.query("select * from \"user\"", userRowMapper);
 
-        //target
         tgChatService.unregister(42L);
 
         List<User> afterRemoveUser = jdbcTemplate.query("select * from \"user\"", userRowMapper);
