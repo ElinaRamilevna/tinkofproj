@@ -63,6 +63,7 @@ public class JpaLinkUpdateServiceImpl implements LinkUpdateService {
             .toList();
     }
 
+    //внутренний вспомогательный метод реализации, в контракте его нет
     public List<LinkEntity> getOldEntityLinks() {
         Timestamp compareDate = new Timestamp(System.currentTimeMillis() - timeUpdateDeltaInSeconds * millisInSecond);
         return linkRepository.findByCheckedAtLessThanOrderByCheckedAtDesc(compareDate);
@@ -77,13 +78,13 @@ public class JpaLinkUpdateServiceImpl implements LinkUpdateService {
             ParserLink result = linkParser.parseUrl(link.getUrl());
             if (result instanceof GitHubLink) {
                 updateGitHubLink(link, result);
-            } else if (result instanceof StackOverflowLink) {
+            } else if (result instanceof StackOverflowlink) {
                 updateStackOverflowLink(link, result);
             }
         }
     }
 
-    public void updateGitHubLink(LinkEntity link, ParseResult result) {
+    public void updateGitHubLink(LinkEntity link, ParserLink result) {
         try {
             boolean isUpdated = false;
             String updateDescription = "";
@@ -92,6 +93,8 @@ public class JpaLinkUpdateServiceImpl implements LinkUpdateService {
                 ((GitHubLink) result).username(),
                 ((GitHubLink) result).repository()
             );
+
+            log.info("Github response: " + response.toString());
 
             if (link.getGhForksCount() == null || response.forksCount() != link.getGhForksCount()) {
                 isUpdated = true;
@@ -144,7 +147,7 @@ public class JpaLinkUpdateServiceImpl implements LinkUpdateService {
         }
     }
 
-    public void updateStackOverflowLink(LinkEntity link, Parser_Link result) {
+    public void updateStackOverflowLink(LinkEntity link, ParseResult result) {
         try {
 
             boolean isUpdated = false;
