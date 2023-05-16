@@ -11,6 +11,7 @@ import ru.tinkoff.edu.java.bot.dto.RemoveLinkRequest;
 import ru.tinkoff.edu.java.bot.dto.UserAddDto;
 
 public class ScrapperClient {
+	
 
     private final WebClient webClient;
 
